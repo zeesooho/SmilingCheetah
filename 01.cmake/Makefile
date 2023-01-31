@@ -1,11 +1,14 @@
 CC = gcc
-TARGET = cmake.exe
-OBJS = .\output\main.o
+TARGET = .\main.exe
+OBJS = .\main.o .\printLine.o .\printLines.o
 
 all : $(TARGET)
 
 $(TARGET) : $(OBJS)
 	$(CC) -o $@ $^
 
-main.o:
-	$(CC) -c main.c -o .\output\main.o
+.c.o:
+	$(CC) -c -o $@ $<
+
+clean:
+	rm -f *.o
