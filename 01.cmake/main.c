@@ -1,6 +1,10 @@
-#include <stdio.h>
+#include "main.h"
 
 int main(){
-    printf("Hello World");
+    printf("Print Line\n");
+    printLine();
+    
+    printf("Print Lines 10\n");
+    printLines(10);
     return 0;
 }
