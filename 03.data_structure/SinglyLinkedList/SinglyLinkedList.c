@@ -15,9 +15,16 @@ SinglyLinkedList* create_singly_linked_list(){
     return list;
 }
 
+int insert_front(SinglyLinkedList* list, element e){
+    insert(list, e, 0);
+}
+
+int insert_back(SinglyLinkedList* list, element e){
+    insert(list, e, list->size - 1);
+}
+
 int insert(SinglyLinkedList* list, element e, int pos){
-    if(e < 0) return 0;
-    if(pos > list->size || pos < 0) return 0;
+    if(pos > list->size || pos < 0) error("out of bounds");
     if(pos == 0){
         ListNode* newNode = create_node(e);
         newNode->link = list->head;
