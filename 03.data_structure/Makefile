@@ -10,5 +10,5 @@ $(TARGET) : $(OBJS)
 .c.o:
 	$(CC) -c -o $@ $<
 
-clean:
-	rm -f *.o
+clean: $(OBJS)
+	del -f $^
