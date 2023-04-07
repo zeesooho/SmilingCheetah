@@ -1,4 +1,5 @@
 #include "SinglyLinkedList.h"
+#include "../util/error.h"
 
 static ListNode* create_node(element e){
     ListNode* node = (ListNode*)malloc(sizeof(ListNode));
@@ -47,7 +48,7 @@ element get(SinglyLinkedList* list, int pos){
 }
 
 int remove_at(SinglyLinkedList* list, int pos){
-    if(pos >= list->size || pos < 0) return 0;
+    if(pos >= list->size || pos < 0) error("out of bounds");
     if(pos == 0){
         ListNode* temp = list->head;
         list->head = temp->link;
