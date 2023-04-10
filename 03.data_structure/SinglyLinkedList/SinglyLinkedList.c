@@ -79,10 +79,9 @@ void remove_at(SinglyLinkedList* list, int pos){
 }
 
 void print_elements(SinglyLinkedList* list){
-    for(int i=0; i<=list->size; i++){
+    for(int i=0; i<list->size; i++){
         if(get(list, i) >= 0)
             printf("%d -> ", get(list, i));
-        else
-            printf("NULL\n");
     }
+    printf("NULL\n");
 }
