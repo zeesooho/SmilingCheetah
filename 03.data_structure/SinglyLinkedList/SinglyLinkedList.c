@@ -15,22 +15,23 @@ SinglyLinkedList* create_singly_linked_list(){
     return list;
 }
 
-int insert_front(SinglyLinkedList* list, element e){
+void insert_front(SinglyLinkedList* list, element e){
     insert(list, e, 0);
 }
 
-int insert_back(SinglyLinkedList* list, element e){
-    insert(list, e, list->size - 1);
+void insert_back(SinglyLinkedList* list, element e){
+    insert(list, e, list->size-1);
 }
 
-int insert(SinglyLinkedList* list, element e, int pos){
-    if(pos > list->size || pos < 0) error("out of bounds");
+void insert(SinglyLinkedList* list, element e, int pos){
+    if(e < 0) error("Illegal element");
+    if(pos > list->size || pos < 0) error("Out of bounds");
     if(pos == 0){
         ListNode* newNode = create_node(e);
         newNode->link = list->head;
         list->head = newNode;
         list->size += 1;
-        return 1;
+        return;
     }
     ListNode* curr = list->head;
     ListNode* prev = NULL;
@@ -42,35 +43,46 @@ int insert(SinglyLinkedList* list, element e, int pos){
     prev->link = newNode;
     newNode->link = curr;
     list->size += 1;
-    return 1;
+    return;
 }
 
 element get(SinglyLinkedList* list, int pos){
-    if(pos >= list->size) return -1;
+    if(pos >= list->size) error("Out of bounds");
     ListNode* curr = list->head;
     for(int i=0; i<pos; i++){
         curr = curr->link;
+        if(curr == NULL) error("Out of bounds");
     }
     return curr->e;
 }
 
-int remove_at(SinglyLinkedList* list, int pos){
-    if(pos >= list->size || pos < 0) error("out of bounds");
+void remove_at(SinglyLinkedList* list, int pos){
+    if(pos >= list->size || pos < 0) error("Out of bounds");
     if(pos == 0){
         ListNode* temp = list->head;
         list->head = temp->link;
         free(temp);
         list->size -= 1;
-        return 1;
+        return;
     }
     ListNode* curr = list->head;
     ListNode* prev = NULL;
     for(int i=0; i<pos; i++){
         prev = curr;
         curr = curr->link;
+        if(curr == NULL) error("Out of bounds");
     }
     prev->link = curr->link;
     free(curr);
     list->size -= 1;
-    return 1;
+    return;
+}
+
+void print_elements(SinglyLinkedList* list){
+    for(int i=0; i<=list->size; i++){
+        if(get(list, i) >= 0)
+            printf("%d -> ", get(list, i));
+        else
+            printf("NULL\n");
+    }
 }

@@ -20,17 +20,19 @@ typedef struct SinglyLinkedList{
 
 SinglyLinkedList* create_singly_linked_list();
 
-int insert_front(SinglyLinkedList* list, element e);
-int insert_back(SinglyLinkedList* list, element e);
-int insert(SinglyLinkedList* list, element e, int pos);
+void insert_front(SinglyLinkedList* list, element e);
+void insert_back(SinglyLinkedList* list, element e);
+void insert(SinglyLinkedList* list, element e, int pos);
 
 element get(SinglyLinkedList* list, int pos);
 element pop_front(SinglyLinkedList* list);
 element pop_back(SinglyLinkedList* list);
 
 // int remove(SinglyLinkedList* list, element e);
-int remove_at(SinglyLinkedList* list, int pos);
+void remove_at(SinglyLinkedList* list, int pos);
 
-int index_of(SinglyLinkedList* list, element e);
+void index_of(SinglyLinkedList* list, element e);
+
+void print_elements(SinglyLinkedList* list);
 
 #endif
