@@ -31,7 +31,7 @@ element pop_back(SinglyLinkedList* list);
 // int remove(SinglyLinkedList* list, element e);
 void remove_at(SinglyLinkedList* list, int pos);
 
-void index_of(SinglyLinkedList* list, element e);
+int index_of(SinglyLinkedList* list, element e);
 
 void print_elements(SinglyLinkedList* list);
 
