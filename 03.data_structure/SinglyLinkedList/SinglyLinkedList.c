@@ -1,5 +1,6 @@
 #include "SinglyLinkedList.h"
 #include "../util/error.h"
+#include <malloc.h>
 
 static ListNode* create_node(element e){
     ListNode* node = (ListNode*)malloc(sizeof(ListNode));

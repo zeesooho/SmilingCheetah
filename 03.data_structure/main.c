@@ -4,6 +4,7 @@
 #include <string.h>
 #include "./SinglyLinkedList/SinglyLinkedList.h"
 #include "./Stack/Stack.h"
+#include "./Queue/Queue.h"
 
 void removeDuplicate(SinglyLinkedList* list){
     SinglyLinkedList* newList = create_singly_linked_list();
@@ -58,6 +59,8 @@ void sortListWithStack(element* list, int capacity, int desc){
         }
     }
 }
+
+void sortListWithQueue();
 
 void printList(element* list, int size){
     printf("[");

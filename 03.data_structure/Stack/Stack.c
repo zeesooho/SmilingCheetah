@@ -1,4 +1,5 @@
 #include "Stack.h"
+#include <malloc.h>
 #include "../util/error.h"
 
 Stack* create_stack(int capacity){

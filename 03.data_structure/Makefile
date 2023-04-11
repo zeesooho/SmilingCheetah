@@ -1,6 +1,6 @@
 CC = gcc
 TARGET = .\main.exe
-OBJS = .\main.o .\util\error.o .\SinglyLinkedList\SinglyLinkedList.o .\Stack\Stack.o
+OBJS = .\main.o .\util\error.o .\SinglyLinkedList\SinglyLinkedList.o .\Stack\Stack.o .\Queue\Queue.o
 
 all : $(TARGET)
 

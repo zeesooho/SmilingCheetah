@@ -16,7 +16,7 @@ Stack* create_stack(int capacity);
 int is_full(Stack* stack);
 int is_empty(Stack* stack);
 void push(Stack* stack, element e);
-int peek(Stack* stack);
-int pop(Stack* stack);
+element peek(Stack* stack);
+element pop(Stack* stack);
 
 #endif
