@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include "./SinglyLinkedList/SinglyLinkedList.h"
 #include "./Stack/Stack.h"
 
@@ -88,22 +89,21 @@ int main(int argc, char* argv[]){
             capacity = atoi(argv[1]);
         
         if(argc > 2)
-            if(argv[2] == "s" || argv[2] == "S")
+            if((int)argv[2][0] == 's' || (int)argv[2][0] == 'S')
                 is_stack = 1;
-            else if(argv[2] == "q" || argv[2] == "Q")
+            else if((int)argv[2][0] == 'q' || (int)argv[2][0] == 'Q')
                 is_stack = 0;
-        
         element* list = (element*)malloc(capacity*sizeof(element));
         for(int i=0; i<capacity; i++)
             list[i] = rand()%1000;
         if(is_stack){
             printList(list, capacity);
             // Stack
-            // desc
-            sortListWithStack(list, capacity, 1);
-            printList(list, capacity);
             // asce
             sortListWithStack(list, capacity, 0);
+            printList(list, capacity);
+            // desc
+            sortListWithStack(list, capacity, 1);
             printList(list, capacity);
         }else{
             // Queue
