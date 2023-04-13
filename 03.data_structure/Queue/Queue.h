@@ -16,6 +16,7 @@ typedef struct Queue{
 Queue* create_queue(int capacity);
 int queue_is_full(Queue* queue);
 int queue_is_empty(Queue* queue);
+int queue_is_not_empty(Queue* queue);
 void enqueue(Queue* queue, element e);
 element dequeue(Queue* queue);
 element queue_peek(Queue* queue);
