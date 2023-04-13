@@ -26,14 +26,14 @@ void sortListWithStack(element* list, int capacity, int desc){
     push(stack1, list[0]);
     if(desc){
         for(int i=1; i<capacity; i++){
-            while(stack_is_empty(stack1)){
+            while(stack_is_not_empty(stack1)){
                 if(peek(stack1) > list[i])
                     push(stack2, pop(stack1));
                 else
                     break;
             }
             push(stack1, list[i]);
-            while(stack_is_empty(stack2)){
+            while(stack_is_not_empty(stack2)){
                 push(stack1, pop(stack2));
             }
         }
@@ -43,20 +43,22 @@ void sortListWithStack(element* list, int capacity, int desc){
     }
     else{
         for(int i=1; i<capacity; i++){
-            while(stack_is_empty(stack1)){
+            while(stack_is_not_empty(stack1)){
                 if(peek(stack1) < list[i])
                     push(stack2, pop(stack1));
                 else
                     break;
             }
             push(stack1, list[i]);
-            while(stack_is_empty(stack2)){
+            while(stack_is_not_empty(stack2)){
                 push(stack1, pop(stack2));
             }
         }
         for(int i=0; i<capacity; i++){
             list[i] = pop(stack1);
         }
+        free(stack1);
+        free(stack2);
     }
 }
 
@@ -67,38 +69,23 @@ void sortListWithQueue(element* list, int capacity, int desc){
     enqueue(queue1, list[0]);
     if(desc){
         for(int i=1; i<capacity; i++){
-            while(queue_is_empty(queue1)){
+            while(queue_is_not_empty(queue1)){
                 if(queue_peek(queue1) > list[i])
                     enqueue(queue2, dequeue(queue1));
-                else
-                    break;
+                break;
             }
-            enqueue(queue1, list[i]);
-            while(queue_is_empty(queue2)){
+            enqueue(queue2, list[i]);
+            while(queue_is_not_empty(queue1))
+                enqueue(queue2, dequeue(queue1));
+            while(queue_is_not_empty(queue2))
                 enqueue(queue1, dequeue(queue2));
-            }
         }
         for(int i=0; i<capacity; i++){
             list[i] = dequeue(queue1);
         }
     }
-    else{
-        for(int i=1; i<capacity; i++){
-            while(queue_is_empty(queue1)){
-                if(queue_peek(queue1) < list[i])
-                    enqueue(queue2, dequeue(queue1));
-                else
-                    break;
-            }
-            enqueue(queue1, list[i]);
-            while(queue_is_empty(queue2)){
-                enqueue(queue1, dequeue(queue2));
-            }
-        }
-        for(int i=0; i<capacity; i++){
-            list[i] = dequeue(queue1);
-        }
-    }
+    free(queue1);
+    free(queue2);
 }
 
 void printList(element* list, int size){
@@ -158,6 +145,7 @@ int main(int argc, char* argv[]){
             sortListWithQueue(list, capacity, 1);
             printList(list, capacity);
         }
+        free(list);
     }
     return 0;
 }
