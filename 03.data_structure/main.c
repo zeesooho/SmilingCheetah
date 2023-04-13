@@ -26,14 +26,14 @@ void sortListWithStack(element* list, int capacity, int desc){
     push(stack1, list[0]);
     if(desc){
         for(int i=1; i<capacity; i++){
-            while(stack1->top > -1){
+            while(stack_is_empty(stack1)){
                 if(peek(stack1) > list[i])
                     push(stack2, pop(stack1));
                 else
                     break;
             }
             push(stack1, list[i]);
-            while(stack2->top > -1){
+            while(stack_is_empty(stack2)){
                 push(stack1, pop(stack2));
             }
         }
@@ -43,14 +43,14 @@ void sortListWithStack(element* list, int capacity, int desc){
     }
     else{
         for(int i=1; i<capacity; i++){
-            while(stack1->top > -1){
+            while(stack_is_empty(stack1)){
                 if(peek(stack1) < list[i])
                     push(stack2, pop(stack1));
                 else
                     break;
             }
             push(stack1, list[i]);
-            while(stack2->top > -1){
+            while(stack_is_empty(stack2)){
                 push(stack1, pop(stack2));
             }
         }
@@ -60,7 +60,46 @@ void sortListWithStack(element* list, int capacity, int desc){
     }
 }
 
-void sortListWithQueue();
+void sortListWithQueue(element* list, int capacity, int desc){
+    // Make empty stacks
+    Queue* queue1 = create_queue(capacity); // Main
+    Queue* queue2 = create_queue(capacity); // Temp
+    enqueue(queue1, list[0]);
+    if(desc){
+        for(int i=1; i<capacity; i++){
+            while(queue_is_empty(queue1)){
+                if(queue_peek(queue1) > list[i])
+                    enqueue(queue2, dequeue(queue1));
+                else
+                    break;
+            }
+            enqueue(queue1, list[i]);
+            while(queue_is_empty(queue2)){
+                enqueue(queue1, dequeue(queue2));
+            }
+        }
+        for(int i=0; i<capacity; i++){
+            list[i] = dequeue(queue1);
+        }
+    }
+    else{
+        for(int i=1; i<capacity; i++){
+            while(queue_is_empty(queue1)){
+                if(queue_peek(queue1) < list[i])
+                    enqueue(queue2, dequeue(queue1));
+                else
+                    break;
+            }
+            enqueue(queue1, list[i]);
+            while(queue_is_empty(queue2)){
+                enqueue(queue1, dequeue(queue2));
+            }
+        }
+        for(int i=0; i<capacity; i++){
+            list[i] = dequeue(queue1);
+        }
+    }
+}
 
 void printList(element* list, int size){
     printf("[");
@@ -96,6 +135,7 @@ int main(int argc, char* argv[]){
                 is_stack = 1;
             else if((int)argv[2][0] == 'q' || (int)argv[2][0] == 'Q')
                 is_stack = 0;
+
         element* list = (element*)malloc(capacity*sizeof(element));
         for(int i=0; i<capacity; i++)
             list[i] = rand()%1000;
@@ -109,7 +149,14 @@ int main(int argc, char* argv[]){
             sortListWithStack(list, capacity, 1);
             printList(list, capacity);
         }else{
+            printList(list, capacity);
             // Queue
+            // asce
+            sortListWithQueue(list, capacity, 0);
+            printList(list, capacity);
+            // desc
+            sortListWithQueue(list, capacity, 1);
+            printList(list, capacity);
         }
     }
     return 0;

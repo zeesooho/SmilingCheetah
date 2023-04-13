@@ -13,8 +13,8 @@ typedef struct Stack{
 }Stack;
 
 Stack* create_stack(int capacity);
-int is_full(Stack* stack);
-int is_empty(Stack* stack);
+int stack_is_full(Stack* stack);
+int stack_is_empty(Stack* stack);
 void push(Stack* stack, element e);
 element peek(Stack* stack);
 element pop(Stack* stack);

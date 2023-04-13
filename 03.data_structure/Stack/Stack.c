@@ -10,16 +10,16 @@ Stack* create_stack(int capacity){
     return stack;
 }
 
-int is_full(Stack* stack){
+int stack_is_full(Stack* stack){
     return (stack->top == stack->capacity-1)? 1 : 0;
 }
 
-int is_empty(Stack* stack){
+int stack_is_empty(Stack* stack){
     return (stack->top == -1)? 1 : 0;
 }
 
 void push(Stack* stack, element e){
-    if(is_full(stack)){
+    if(stack_is_full(stack)){
         stack->capacity *= 2;
         realloc(stack->data, (stack->capacity)*sizeof(element));
     }
@@ -28,12 +28,12 @@ void push(Stack* stack, element e){
 }
 
 element peek(Stack* stack){
-    if(is_empty(stack)) error("Out of bounds");
+    if(stack_is_empty(stack)) error("Out of bounds");
     return (stack->data)[stack->top];
 }
 
 element pop(Stack* stack){
-    if(is_empty(stack)) error("Out of bounds");
+    if(stack_is_empty(stack)) error("Out of bounds");
     element e = (stack->data)[stack->top];
     stack->top -= 1;
     return e;
