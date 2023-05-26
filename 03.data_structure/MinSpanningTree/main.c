@@ -19,7 +19,6 @@ int main(int argc, char **argv){
         printf("src = %d, dist = %d, weight = %d\n", src, dist, weight);
     }
     fclose(fp);
-
-
+    
     return 0;
 }
