@@ -19,7 +19,6 @@ int main(int argc, char **argv){
         int dst = atoi(strtok(NULL, "\t"));
         int weight = atoi(strtok(NULL, "\t"));
         insert_vertex(graph, src);
-        printf("src = %d, dst = %d, weight = %d\n", src, dst, weight);
     }
     fclose(fp);
 
@@ -31,30 +30,36 @@ int main(int argc, char **argv){
         int dst = atoi(strtok(NULL, "\t"));
         int weight = atoi(strtok(NULL, "\t"));
         insert_edge(graph, src, dst, weight);
-        printf("src = %d, dst = %d, weight = %d\n", src, dst, weight);
     }
     fclose(fp);
 
     initialize_edge(graph);
-    fp = fopen("outputs.csv", "w");
+    fp = fopen("outputs2.csv", "w");
     fprintf(fp, "src,dst,weights\n");
-    if(fp == NULL) 
-        exit(1);
-    printf("adjacent %d x %d\n", graph->size, graph->size);
-    for(int i = 0; i < graph->size; i++) {
-        printf("%d: ", graph->vertices[i]);
-        int* adjacent = get_adjacent(graph, graph->vertices[i]);
-        for(int j = 0; j < graph->size; j++) {
-            if (adjacent[j] != NOT_FOUND){
-                printf("%4d\t", adjacent[j]);
-                fprintf(fp, "%d,%d,%.1f\n", get_index(graph, i), adjacent[j], graph->weights[graph->size * get_index(graph, i) + adjacent[j]]);
+    Graph* mst_graph = prim(graph, 0);
+    if(prim == NULL) exit(1);
+    for(int i = 0; i < mst_graph->size; i++){
+        int* adjacent = get_adjacent(mst_graph, mst_graph->vertices[i]);
+        for(int j = 0; j < mst_graph->size; j++){
+            if(adjacent[j] != NOT_FOUND){
+                fprintf(fp, "%d,%d,%.1f\n", mst_graph->vertices[i], mst_graph->vertices[adjacent[j]], get_weight(mst_graph, i, adjacent[j]));
             }
         }
         free(adjacent);
-        printf("\n");
     }
     fclose(fp);
-    
+
+    float weight_sum = 0.0;
+    for(int i=0; i<mst_graph->size; i++){
+        for(int j=i+1; j<mst_graph->size; j++){
+            if(get_weight(mst_graph, i, j) != INF){
+                weight_sum += get_weight(mst_graph, i, j);
+            }
+        }
+    }
+
+    printf("%f\n", weight_sum);
     delete_graph(graph);
+    delete_graph(mst_graph);
     return 0;
 }
